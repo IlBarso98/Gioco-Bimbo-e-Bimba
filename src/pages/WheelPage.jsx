@@ -188,7 +188,6 @@ function WheelPage() {
                       src={place.image}
                     />
                     <span className="choice-title">{place.title}</span>
-                    <span className="choice-text">{place.description}</span>
                   </button>
                 ))}
               </div>

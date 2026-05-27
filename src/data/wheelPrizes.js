@@ -23,14 +23,12 @@ export const wheelLocations = [
     name: 'Cremeria Opera',
     image: '/assets/wheel/Cremeria Opera.jpg',
     alt: 'Possibile meta premio: Cremeria Opera',
-    description: 'Una merenda golosissima con tutto il tono ufficiale richiesto.',
   },
   {
     id: 'pracchia',
     name: 'Pracchia',
     image: '/assets/wheel/Pracchia.jpg',
     alt: 'Possibile meta premio: Pracchia',
-    description: 'Una scelta da premio vinto bene, con aria buona e facce felici.',
   },
 ];
 
@@ -39,5 +37,4 @@ export const winningPlaces = wheelLocations.map((place) => ({
   title: place.name,
   image: place.image,
   alt: place.alt,
-  description: place.description
 }));
