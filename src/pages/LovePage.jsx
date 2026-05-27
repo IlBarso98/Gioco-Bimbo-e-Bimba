@@ -47,8 +47,6 @@ function LovePage() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h3>{siteContent.loveIntroTitle}</h3>
-          <p>{siteContent.loveIntroText}</p>
           <button type="button" className="soft-button soft-button-primary" onClick={startExperience}>
             Premi qui, amore
           </button>

@@ -8,9 +8,9 @@ function PolaroidPhoto({ photo, className = "" }) {
     >
       <PlaceholderMedia
         alt={photo.alt}
-        aspectRatio="4 / 5"
         className="polaroid-image"
         label="Aggiungi qui la vostra foto"
+        preserveSize
         src={photo.src}
       />
       {photo.caption ? <figcaption className="polaroid-caption">{photo.caption}</figcaption> : null}

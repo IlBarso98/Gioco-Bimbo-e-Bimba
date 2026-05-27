@@ -53,10 +53,10 @@ function PhotoSlideshow({ slides = [] }) {
           <ImageWithFallback
             src={currentSlide.src}
             alt={currentSlide.alt}
-            aspectRatio="16 / 10"
             className="slideshow-media"
             imageClassName="slideshow-media"
             label="Foto in arrivo"
+            preserveSize
           />
           <figcaption>
             {currentSlide.caption ? <p>{currentSlide.caption}</p> : null}

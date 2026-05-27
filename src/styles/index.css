@@ -439,8 +439,16 @@ a {
 .popup-photo,
 .choice-image {
   border-radius: 16px;
-  object-fit: cover;
+  object-fit: contain;
   background: #fff7fa;
+}
+
+.polaroid-image,
+.slideshow-media {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
 }
 
 .polaroid-caption,

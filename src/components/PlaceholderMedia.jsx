@@ -5,6 +5,7 @@ function PlaceholderMedia({
   alt,
   className = "",
   aspectRatio = "4 / 5",
+  preserveSize = false,
   label = "Aggiungi qui una foto speciale"
 }) {
   const [hasError, setHasError] = useState(!src);
@@ -19,7 +20,7 @@ function PlaceholderMedia({
         aria-label={alt}
         className={`media-placeholder ${className}`.trim()}
         role="img"
-        style={{ aspectRatio }}
+        style={preserveSize ? undefined : { aspectRatio }}
       >
         <span>{label}</span>
       </div>
@@ -33,7 +34,7 @@ function PlaceholderMedia({
       loading="lazy"
       onError={() => setHasError(true)}
       src={src}
-      style={{ aspectRatio }}
+      style={preserveSize ? undefined : { aspectRatio }}
     />
   );
 }

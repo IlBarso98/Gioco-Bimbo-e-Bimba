@@ -5,6 +5,7 @@ function ImageWithFallback({
   src,
   alt,
   aspectRatio = '4 / 5',
+  preserveSize = false,
   className = '',
   imageClassName = '',
   label = 'Foto in arrivo',
@@ -19,7 +20,7 @@ function ImageWithFallback({
     return (
       <div
         className={`image-fallback ${className}`.trim()}
-        style={{ aspectRatio }}
+        style={preserveSize ? undefined : { aspectRatio }}
         role="img"
         aria-label={alt || label}
       >
@@ -33,11 +34,10 @@ function ImageWithFallback({
       src={resolveAssetPath(src)}
       alt={alt}
       className={`${className} ${imageClassName}`.trim()}
-      style={{ aspectRatio }}
+      style={preserveSize ? undefined : { aspectRatio }}
       onError={() => setHasError(true)}
     />
   );
 }
 
 export default ImageWithFallback;
-
