@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import L from "leaflet";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import MapViewportController from "../components/MapViewportController";
 import PlaceholderMedia from "../components/PlaceholderMedia";
 import SectionTitle from "../components/SectionTitle";
 import { mapPlaces } from "../data/mapPlaces";
 import { siteContent } from "../data/siteContent";
+import { resolveAssetPath } from "../utils/assets";
 import { formatLongDate } from "../utils/date";
 
 const heartIcon = L.divIcon({
@@ -29,13 +30,89 @@ const mappablePlaces = sortedPlaces.filter(
 );
 
 function MapPage() {
+  const audioRef = useRef(null);
   const [selectedPlaceId, setSelectedPlaceId] = useState(mappablePlaces[0]?.id ?? null);
+  const [audioNotice, setAudioNotice] = useState("");
+  const [isAudioBlocked, setIsAudioBlocked] = useState(false);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    if (!audio) {
+      return undefined;
+    }
+
+    let isMounted = true;
+
+    const startAudio = async () => {
+      try {
+        audio.currentTime = 0;
+        await audio.play();
+
+        if (!isMounted) {
+          return;
+        }
+
+        setAudioNotice("");
+        setIsAudioBlocked(false);
+      } catch (error) {
+        if (!isMounted) {
+          return;
+        }
+
+        setIsAudioBlocked(true);
+        setAudioNotice("La musica della mappa aspetta un tocco per partire.");
+      }
+    };
+
+    startAudio();
+
+    return () => {
+      isMounted = false;
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
+
+  const handleStartAudio = async () => {
+    const audio = audioRef.current;
+
+    if (!audio) {
+      return;
+    }
+
+    try {
+      audio.currentTime = 0;
+      await audio.play();
+      setAudioNotice("");
+      setIsAudioBlocked(false);
+    } catch (error) {
+      setAudioNotice("Il browser sta ancora bloccando la musica della mappa.");
+      setIsAudioBlocked(true);
+    }
+  };
 
   if (sortedPlaces.length === 0 || mappablePlaces.length === 0) {
     return (
       <div className="page-section">
+        <audio
+          ref={audioRef}
+          preload="metadata"
+          src={resolveAssetPath(siteContent.mapAudioSrc)}
+          onError={() => setAudioNotice("Audio mappa non trovato: controlla il file dentro public/assets/audio/.")}
+        />
         <section className="glass-card empty-state">
           <SectionTitle eyebrow="Mappa" intro={siteContent.mapIntro} title={siteContent.mapTitle} />
+          {audioNotice ? (
+            <div className="button-row map-audio-row">
+              <span className="status-note">{audioNotice}</span>
+              {isAudioBlocked ? (
+                <button className="secondary-button" onClick={handleStartAudio} type="button">
+                  Avvia musica
+                </button>
+              ) : null}
+            </div>
+          ) : null}
           <p>{siteContent.mapEmptyMessage}</p>
         </section>
       </div>
@@ -47,8 +124,24 @@ function MapPage() {
 
   return (
     <div className="page-section">
+      <audio
+        ref={audioRef}
+        preload="metadata"
+        src={resolveAssetPath(siteContent.mapAudioSrc)}
+        onError={() => setAudioNotice("Audio mappa non trovato: controlla il file dentro public/assets/audio/.")}
+      />
       <section className="section-block">
         <SectionTitle eyebrow="Mappa" intro={siteContent.mapIntro} title={siteContent.mapTitle} />
+        {audioNotice ? (
+          <div className="button-row map-audio-row">
+            <span className="status-note">{audioNotice}</span>
+            {isAudioBlocked ? (
+              <button className="secondary-button" onClick={handleStartAudio} type="button">
+                Avvia musica
+              </button>
+            ) : null}
+          </div>
+        ) : null}
         <div className="map-layout">
           <motion.div
             animate={{ opacity: 1, y: 0 }}

@@ -17,6 +17,7 @@ export const siteContent = {
     "Segnaposti, piccoli viaggi, deviazioni riuscite bene e luoghi che ormai hanno un significato tutto nostro.",
   mapEmptyMessage:
     "Qui compariranno tutti i posti speciali in cui siamo stati insieme.",
+  mapAudioSrc: "/assets/audio/ScreenRecording_05-27-2026 15-29-19_1.mp3",
   quizTitle: "Quiz di coppia",
   quizIntro:
     "Domande a scelta multipla su di noi, Non ti azzardare a sbagliare bimba!",

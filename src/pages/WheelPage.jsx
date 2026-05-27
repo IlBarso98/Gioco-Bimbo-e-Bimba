@@ -26,10 +26,52 @@ function WheelPage() {
   const [hasRevealedPrize, setHasRevealedPrize] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
   const timeoutRef = useRef(null);
+  const scrollTopRef = useRef(0);
+  const bodyStyleRef = useRef(null);
 
   useEffect(() => {
     return () => window.clearTimeout(timeoutRef.current);
   }, []);
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      return undefined;
+    }
+
+    const { body, documentElement } = document;
+
+    scrollTopRef.current = window.scrollY;
+    bodyStyleRef.current = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow,
+      htmlOverflow: documentElement.style.overflow
+    };
+
+    body.style.position = "fixed";
+    body.style.top = `-${scrollTopRef.current}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+    documentElement.style.overflow = "hidden";
+
+    return () => {
+      const previousStyles = bodyStyleRef.current;
+
+      body.style.position = previousStyles?.position ?? "";
+      body.style.top = previousStyles?.top ?? "";
+      body.style.left = previousStyles?.left ?? "";
+      body.style.right = previousStyles?.right ?? "";
+      body.style.width = previousStyles?.width ?? "";
+      body.style.overflow = previousStyles?.overflow ?? "";
+      documentElement.style.overflow = previousStyles?.htmlOverflow ?? "";
+      window.scrollTo(0, scrollTopRef.current);
+    };
+  }, [isModalOpen]);
 
   const spinWheel = () => {
     if (isSpinning) {
