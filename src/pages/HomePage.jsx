@@ -12,7 +12,7 @@ const sectionCards = [
   },
   {
     title: "Mappa",
-    text: "I posti speciali diventano marker con popup, foto e mini timeline."
+    text: "I posti speciali della nostra vita insieme"
   },
   {
     title: "Quiz",

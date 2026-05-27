@@ -1,6 +1,6 @@
 export const quizQuestions = [
   {
-    question: 'La cena migliore e al:',
+    question: "La cena migliore è al ...",
     correct: "McDonald's",
     wrong: 'Celide',
   },
