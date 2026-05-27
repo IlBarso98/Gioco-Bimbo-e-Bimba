@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { resolveAssetPath } from "../utils/assets";
 
 function PlaceholderMedia({
   src,
@@ -33,7 +34,7 @@ function PlaceholderMedia({
       className={className}
       loading="lazy"
       onError={() => setHasError(true)}
-      src={src}
+      src={resolveAssetPath(src)}
       style={preserveSize ? undefined : { aspectRatio }}
     />
   );
