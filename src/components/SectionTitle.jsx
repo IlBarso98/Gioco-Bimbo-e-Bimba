@@ -1,0 +1,11 @@
+function SectionTitle({ eyebrow, title, intro }) {
+  return (
+    <div className="section-title">
+      {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
+      <h2>{title}</h2>
+      {intro ? <p className="section-intro">{intro}</p> : null}
+    </div>
+  );
+}
+
+export default SectionTitle;
