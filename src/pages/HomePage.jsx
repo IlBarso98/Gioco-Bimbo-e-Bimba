@@ -20,11 +20,11 @@ const sectionCards = [
   },
   {
     title: "Ti amo",
-    text: "Uno slideshow con musica, play, pausa e transizioni morbide."
+    text: "Una carrellata di bei ricordi di momenti felici"
   },
   {
     title: "La ruota",
-    text: "Un piccolo rito scenico per decidere la prossima merenda importante."
+    text: "Un succoso premio per un piccolo gioco. Tranquilla non devi indovinare niente qui"
   }
 ];
 
@@ -54,11 +54,7 @@ function HomePage() {
       </section>
 
       <section className="section-block">
-        <SectionTitle
-          eyebrow="Istantanee"
-          intro="Le card sono gia pronte per funzionare anche prima di inserire le foto vere. Basta sostituire i file dentro public/assets/photos."
-          title="Una piccola parete di polaroid"
-        />
+        <SectionTitle eyebrow="Istantanee" title="Una piccola parete di polaroid" />
         <div className="polaroid-showcase">
           {homePolaroids.map((photo, index) => (
             <motion.div
